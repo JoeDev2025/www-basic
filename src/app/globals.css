@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--background: #0d0d12;
+	--foreground: #e3e8ff;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background: #0d0d12;
+		--foreground: #e3e8ff;
+	}
+}
+
+body {
+	color: var(--foreground);
+	background: var(--background);
+}
+
+/* Prevent horizontal scroll */
+html,
+body {
+	overflow-x: hidden;
+}
+
+.truustit-purple {
+	background: #5364e0;
+}
+
+.text1 {
+	color: #ccd1e999;
+}
+.text2 {
+	color: #ccd1e9;
+}
+
+.test-bubble-1 {
+	background: linear-gradient(
+		135deg,
+		rgb(42, 35, 61) 0%,
+		rgba(29, 26, 46, 0.8) 100%
+	);
+	/* box-shadow: rgba(255, 255, 255, 0.24) 1px 1px 1.5px 0px inset,
+		rgba(8, 0, 36, 0.3) -40px 36px 30px 0px,
+		rgba(3, 0, 38, 0.6) 0px -1.5px 1px 0px inset; */
+}
+
+.test-bubble-1-light {
+	color: #0d0d12;
+	background: linear-gradient(
+		135deg,
+		rgb(236, 236, 236) 0%,
+		rgba(157, 157, 157, 0.8) 100%
+	);
+	/* box-shadow: rgba(255, 255, 255, 1) 1px 1px 1.5px 0px inset,
+		rgba(8, 0, 36, 0.3) -40px 36px 30px 0px,
+		rgba(3, 0, 38, 0.6) 0px -1.5px 1px 0px inset; */
+}
+
+.test-bubble-1-blue {
+	color: d7e2fa;
+	background: linear-gradient(135deg, #5364e0 0%, #2c3681 100%);
+	/* box-shadow: rgb(183, 190, 246, 0.5) 1px 1px 1.5px 0px inset,
+		rgba(8, 0, 36, 0.3) -40px 36px 30px 0px,
+		rgba(3, 0, 38, 0.6) 0px -1.5px 1px 0px inset; */
+}
+
+.dark-to-purple {
+	background: linear-gradient(
+		180deg,
+		#0d0d12 45%,
+		rgb(35, 27, 61) 55%,
+		rgb(78, 51, 145) 75%,
+		rgb(150, 163, 255) 100%
+	);
+}
+@media screen and (max-width: 1024px) {
+	.dark-to-purple {
+		background: linear-gradient(
+			180deg,
+			#0d0d12 63%,
+			rgb(35, 27, 61) 70%,
+			rgb(78, 51, 145) 80%,
+			rgb(150, 163, 255) 100%
+		);
+	}
+}
+
+.purple-to-white {
+	background: linear-gradient(
+		0deg,
+		#f6f6f8 43%,
+		rgb(246, 246, 248) 70%,
+		rgb(215, 226, 250) 80%,
+		rgb(150, 163, 255) 100%
+	);
+}
+.purple-to-dark {
+	background: linear-gradient(
+		180deg,
+		#391e75 0%,
+		rgba(13, 13, 18, 1) 36%,
+		rgb(13, 13, 18) 100%
+	);
+}
+.perspective-shift-1 {
+	will-change: transform;
+	opacity: 1;
+	transform: perspective(5000px) translateY(-25.5385px) scale(1.1)
+		rotate(340deg) rotateX(24deg) rotateY(30deg);
+	transform-origin: 0% 0% 0px;
+}
+
+.fade-top-to-bottom {
+	position: absolute;
+	width: 100%;
+	min-height: 30vh;
+	top: -25px;
+	left: 0;
+	right: 0;
+	background: linear-gradient(
+		180deg,
+		rgba(13, 13, 17, 0.85) 0%,
+		rgba(14, 14, 18, 0) 60%,
+		rgba(14, 14, 18, 0) 100%
+	);
+	z-index: 6;
+	pointer-events: none;
+}
+
+.crawl {
+	transform: translateX(-50%) perspective(620px) scale(1) rotateX(22deg);
+	transform-origin: 50% 110% 0px;
+	position: absolute;
+	top: -40px;
+	left: 50%;
+	width: 100%;
+	height: 100%;
+	z-index: 5;
+}
+
+@keyframes crawl {
+	0% {
+		top: 0;
+		transform: rotateX(20deg) translateZ(0);
+	}
+	100% {
+		top: -6000px;
+		transform: rotateX(25deg) translateZ(-2500px);
+	}
+}
+
+/* DARK / LIGHT MODE TWEAKS */
+
+input:-webkit-autofill {
+	background-color: #ffffff !important; /* Light mode background */
+	color: #000000 !important; /* Light mode text */
+	border: 1px solid #e5e7eb !important; /* Light mode border */
+	box-shadow: 0 0 0px 1000px #ffffff inset !important; /* Override the autofill shadow */
+}
+
+@media (prefers-color-scheme: dark) {
+	input:-webkit-autofill {
+		background-color: #1f2937 !important; /* Dark mode background */
+		color: #e5e7eb !important; /* Dark mode text */
+		border: 1px solid #4b5563 !important; /* Dark mode border */
+		box-shadow: 0 0 0px 1000px #1f2937 inset !important; /* Override the autofill shadow */
+	}
+
+	input:-webkit-autofill::first-line {
+		color: #e5e7eb !important;
+	}
+}

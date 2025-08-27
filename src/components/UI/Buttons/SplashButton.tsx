@@ -1,0 +1,25 @@
+import clsx from "clsx";
+type SplashButtonProps = {
+  children: React.ReactNode;
+  className?: string;
+  onClick?: () => void;
+};
+
+export const SplashButton = ({
+  children,
+  className,
+  onClick,
+  ...rest
+}: SplashButtonProps) => {
+  return (
+    <button
+      onClick={onClick}
+      className={clsx(
+        "rounded-md bg-gradient-to-br from-blue-400 to-sky-700 px-4 py-2 text-zinc-50 ring-2 ring-blue-500/50 ring-offset-2 ring-offset-zinc-50 dark:ring-offset-zinc-950 transition-all hover:scale-[1.02] hover:ring-transparent active:scale-[0.98] active:ring-blue-500/70",
+        className
+      )}
+      {...rest}>
+      {children}
+    </button>
+  );
+};
