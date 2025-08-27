@@ -1,51 +1,49 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FiMoon, FiSun } from "react-icons/fi";
 
 const TOGGLE_CLASSES =
-  "text-sm font-medium flex items-center gap-2 px-3 md:pl-3 md:pr-3.5 py-2 md:py-1.5 transition-colors relative z-10";
+	"text-sm font-medium flex items-center gap-2 px-3 md:pl-3 md:pr-3.5 py-2 md:py-1.5 transition-colors relative z-10";
 export const LS_KEY_DARK_MODE = "DarkLightMode";
 
 const DarkLightMode = ({ minified }: { minified: boolean }) => {
-  const getTheme = useCallback(() => {
-    return (typeof localStorage !== "undefined" &&
-      localStorage.getItem(LS_KEY_DARK_MODE)) ||
-      "dark";
-  }, []);
-  
-  const theme = getTheme();
-  const [selectedTheme, setSelectedTheme] = useState("dark");
+	const [selectedTheme, setSelectedTheme] = useState("dark");
 
-  useEffect(() => {
-    setSelectedTheme(theme);
-  }, [theme]);
+	useEffect(() => {
+		// Get theme from localStorage only once on mount
+		const savedTheme =
+			(typeof localStorage !== "undefined" &&
+				localStorage.getItem(LS_KEY_DARK_MODE)) ||
+			"dark";
+		setSelectedTheme(savedTheme);
+	}, []);
 
-  useEffect(() => {
-    if (["dark", "light"].includes(selectedTheme)) {
-      document.documentElement.classList.add(selectedTheme);
-      localStorage.setItem(LS_KEY_DARK_MODE, selectedTheme);
-      if (selectedTheme === "dark") {
-        document.documentElement.classList.remove("light");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    }
-  }, [selectedTheme]);
+	useEffect(() => {
+		if (["dark", "light"].includes(selectedTheme)) {
+			document.documentElement.classList.add(selectedTheme);
+			localStorage.setItem(LS_KEY_DARK_MODE, selectedTheme);
+			if (selectedTheme === "dark") {
+				document.documentElement.classList.remove("light");
+			} else {
+				document.documentElement.classList.remove("dark");
+			}
+		}
+	}, [selectedTheme]);
 
-  return (
-    <div
-      className={`rounded-md grid h-[42px] place-content-center px-4 transition-colors ${
-        minified ? "" : selectedTheme === "light" ? "bg-white" : "bg-slate-900"
-      }`}>
-      <SliderToggle
-        selected={selectedTheme}
-        setSelected={setSelectedTheme}
-        minified={minified}
-      />
-    </div>
-  );
+	return (
+		<div
+			className={`rounded-md grid h-[42px] place-content-center px-4 transition-colors ${
+				minified ? "" : selectedTheme === "light" ? "bg-white" : "bg-slate-900"
+			}`}>
+			<SliderToggle
+				selected={selectedTheme}
+				setSelected={setSelectedTheme}
+				minified={minified}
+			/>
+		</div>
+	);
 };
 
 const SliderToggle = ({

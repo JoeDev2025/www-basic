@@ -69,7 +69,6 @@ export const AuthModalProvider = ({ children }: { children: ReactNode }) => {
 
 	const refreshAuthState = async () => {
 		try {
-			await supabaseCLIENT.auth.refreshSession();
 			const { data, error } = await supabaseCLIENT.auth.getSession();
 			if (error) {
 				throw error;
@@ -83,7 +82,13 @@ export const AuthModalProvider = ({ children }: { children: ReactNode }) => {
 					user: user,
 				});
 			} else {
-				throw new Error("No session data");
+				// No session means user is logged out
+				setAuthState({
+					pending: false,
+					loggedIn: false,
+					loggedOut: true,
+					user: null,
+				});
 			}
 		} catch (error: unknown) {
 			if (error instanceof Error) {
@@ -101,7 +106,33 @@ export const AuthModalProvider = ({ children }: { children: ReactNode }) => {
 	};
 
 	useEffect(() => {
+		// Initial auth state check
 		refreshAuthState();
+
+		// Listen for auth state changes
+		const {
+			data: { subscription },
+		} = supabaseCLIENT.auth.onAuthStateChange(async (event, session) => {
+			console.log("Auth state change:", event, session);
+			if (event === "SIGNED_IN" && session) {
+				setAuthState({
+					pending: false,
+					loggedIn: true,
+					loggedOut: false,
+					user: session.user,
+				});
+			} else if (event === "SIGNED_OUT") {
+				setAuthState({
+					pending: false,
+					loggedIn: false,
+					loggedOut: true,
+					user: null,
+				});
+			}
+		});
+
+		// Cleanup subscription
+		return () => subscription.unsubscribe();
 	}, []);
 
 	return (

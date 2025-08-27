@@ -8,15 +8,14 @@ import Link from "next/link";
 import { useState } from "react";
 import { FiLogIn, FiUserPlus } from "react-icons/fi";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { AuthModalProvider, useAuthModal } from "../UI/Auth/AuthModalProvider";
+import { useAuthModal } from "../UI/Auth/AuthModalProvider";
 import DarkLightMode from "../UI/DarkLightMode";
 
-// Inner component that uses the useAuthModal hook
-const HeaderContent = () => {
+export default function HeaderAndMenu() {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isMoreOpen, setIsMoreOpen] = useState(false);
 	const { openAuthModal, authState, refreshAuthState } = useAuthModal();
-	
+
 	// Split menu items into main and dropdown
 	const mainItems = mainMenu.slice(0, 4);
 	const dropdownItems = mainMenu.slice(4);
@@ -89,7 +88,7 @@ const HeaderContent = () => {
 												className="mb-2 last:mb-0">
 												<Link
 													href={item.href}
-													className="text-gray-400 font-light hover:text-gray-200 transition-colors ease-in-out duration-300 block">
+													className="block text-gray-900 hover:text-gray-700 dark:text-gray-300 dark:hover:text-white p-2 rounded-lg hover:bg-white/10 transition-colors">
 													{item.name}
 												</Link>
 											</motion.li>
@@ -216,14 +215,5 @@ const HeaderContent = () => {
 				)}
 			</AnimatePresence>
 		</header>
-	);
-};
-
-// Main component that provides the AuthModalProvider context
-export default function HeaderAndMenu() {
-	return (
-		<AuthModalProvider>
-			<HeaderContent />
-		</AuthModalProvider>
 	);
 }

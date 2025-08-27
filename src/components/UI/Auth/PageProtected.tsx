@@ -71,10 +71,14 @@ export const ComponentProtected = (props: ComponentProtectedProps) => {
 	const { signedInChildren, loggedOutChildren, showLoadingElement } = props;
 	const { authState } = useAuthModal();
 
-	// console.log('🧪',authState.loggedOut);
+	console.log("🧪 ComponentProtected authState:", authState);
 
-	if (authState.pending && showLoadingElement) {
-		return <>{showLoadingElement}</>;
+	if (authState.pending) {
+		if (showLoadingElement) {
+			return <>{showLoadingElement}</>;
+		}
+		// Return a default loading state if none provided
+		return <div>Loading...</div>;
 	}
 
 	if (authState.loggedIn) {
@@ -85,5 +89,6 @@ export const ComponentProtected = (props: ComponentProtectedProps) => {
 		return <>{loggedOutChildren}</>;
 	}
 
-	return null;
+	// Fallback for any unexpected state
+	return <div>Loading...</div>;
 };

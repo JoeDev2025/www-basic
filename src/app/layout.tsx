@@ -1,4 +1,5 @@
 import HeaderAndMenu from "@/components/Homepage/1HeaderAndMenu";
+import { ClientAuthWrapper } from "@/components/UI/Auth/ClientAuthWrapper";
 import { FontMontserrat } from "@/components/UI/Fonts";
 import Footer from "@/components/UI/Footer";
 import type { Metadata } from "next";
@@ -17,16 +18,17 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" className="dark">
-			<body className={`antialiased  bg-white dark:bg-zinc-950/95 text-black dark:text-white`}>
+			<body
+				className={`antialiased  bg-white dark:bg-zinc-950/95 text-black dark:text-white`}>
 				<FontMontserrat>
-					<div>
-
-
-						{/* NEW MENU */}
-						<HeaderAndMenu />
-					</div>
-					<div className="mt-20">{children}</div>
-					<Footer />
+					<ClientAuthWrapper>
+						<div>
+							{/* NEW MENU */}
+							<HeaderAndMenu />
+						</div>
+						<div className="mt-20">{children}</div>
+						<Footer />
+					</ClientAuthWrapper>
 				</FontMontserrat>
 			</body>
 		</html>
